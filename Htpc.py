@@ -65,8 +65,8 @@ def load_modules():
     htpc.ROOT.transmission = Transmission()
     from modules.deluge import Deluge
     htpc.ROOT.deluge = Deluge()
-    from modules.squeezebox import Squeezebox
-    htpc.ROOT.squeezebox = Squeezebox()
+    # from modules.squeezebox import Squeezebox
+    # htpc.ROOT.squeezebox = Squeezebox()
     from modules.search import Search
     htpc.ROOT.search = Search()
     from modules.utorrent import UTorrent

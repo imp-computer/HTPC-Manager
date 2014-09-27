@@ -1,3 +1,4 @@
+/*
 var currentPlayer, nowPlayingThumb;
 var artist_id = {}
 var album_id = {}
@@ -324,3 +325,4 @@ function getPlaylists() {
         $('#playlists').html(list);
     }, 'json');
 }
+*/
