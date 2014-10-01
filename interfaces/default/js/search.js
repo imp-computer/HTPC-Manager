@@ -171,7 +171,7 @@ function showDetails(data) {
     }
     showModal(modalTitle, modalBody, modalButtons);
 }
-
+/*
 function sendToSab(url) {
     return $.ajax({
         url: WEBDIR + 'sabnzbd/AddNzbFromUrl',
@@ -182,7 +182,7 @@ function sendToSab(url) {
             notify('', 'Sent to SabNZBd', 'info');
         }
     });
-}
+}*/
 
 $(document).ready(function () {
     $('#searchform').submit(function() {

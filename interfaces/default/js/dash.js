@@ -5,8 +5,8 @@ $(document).ready(function () {
     loadRecentMoviesPlex()
     loadRecentTVshowsPlex()
     loadRecentAlbumsPlex()
-    loadDownloadHistory()
-    loadNZBGetDownloadHistory()
+//    loadDownloadHistory()
+//    loadNZBGetDownloadHistory()
     loadWantedMovies()
     loadNextAired()
 })
@@ -183,7 +183,7 @@ function loadRecentAlbumsPlex () {
         $('#albums-content-plex').parent().show()
     })
 }
-function loadDownloadHistory() {
+/*function loadDownloadHistory() {
     if (!$('#downloads_table_body').length) return
     $.getJSON(WEBDIR + 'sabnzbd/GetHistory?limit=5', function (data) {
         $.each(data.history.slots, function (i, slot) {
@@ -199,8 +199,8 @@ function loadDownloadHistory() {
             )
         })
     })
-}
-function loadNZBGetDownloadHistory() {
+}*/
+/*function loadNZBGetDownloadHistory() {
     if (!$('#nzbgetdownloads_table_body').length) return
     $.getJSON(WEBDIR + 'nzbget/GetHistory?limit=5', function (data) {
         $.each(data.result, function (i, slot) {
@@ -216,7 +216,7 @@ function loadNZBGetDownloadHistory() {
             )
         })
     })
-}
+}*/
 function loadWantedMovies() {
     if (!$('#wantedmovies_table_body').length) return
     $.getJSON(WEBDIR + 'couchpotato/GetMovieList/active/5', function (result) {

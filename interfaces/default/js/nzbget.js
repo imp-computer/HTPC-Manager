@@ -1,3 +1,4 @@
+/*
 // Globally define download speed in bytes per second
 var downloadSpeed = 0;
 
@@ -108,12 +109,14 @@ function loadQueue(once) {
                 $('#active_table_body').append(row);
             }
             $.each(data, function (i, job) {
-                /*
+                */
+/*
                  * Concat filesizes.
                  * The file sizes consist of two 32bit ints that makeup a 64bit int.
                  * The Hi comes first, followed by the Low.
                  * Preceded with an empty string so the two values do not sum, but concat.
-                 */
+                 *//*
+
                 totalSize = "" + job.FileSizeHi + job.FileSizeLo;
                 remainingSize = "" + job.RemainingSizeHi + job.RemainingSizeLo;
                 pausedSize = "" + job.PausedSizeHi + job.PausedSizeLo;
@@ -246,3 +249,4 @@ function nzbgetStatusIcon(iconText, white){
   return '';
 }
 
+*/

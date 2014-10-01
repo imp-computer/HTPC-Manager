@@ -1,3 +1,4 @@
+/*
 $(document).ready(function () {
     $(window).trigger('hashchange')
     $('#nzb_pause_button').click(function () {
@@ -366,3 +367,4 @@ function sabnzbdStatusIcon(iconText, white){
   }
   return '';
 }
+*/

@@ -55,8 +55,8 @@ def load_modules():
     # Import all modules.
     from modules.xbmc import Xbmc
     htpc.ROOT.xbmc = Xbmc()
-    from modules.sabnzbd import Sabnzbd
-    htpc.ROOT.sabnzbd = Sabnzbd()
+    # from modules.sabnzbd import Sabnzbd
+    # htpc.ROOT.sabnzbd = Sabnzbd()
     from modules.couchpotato import Couchpotato
     htpc.ROOT.couchpotato = Couchpotato()
     from modules.sickbeard import Sickbeard
@@ -67,12 +67,12 @@ def load_modules():
     htpc.ROOT.deluge = Deluge()
     from modules.squeezebox import Squeezebox
     htpc.ROOT.squeezebox = Squeezebox()
-    from modules.search import Search
-    htpc.ROOT.search = Search()
+    # from modules.search import Search
+    # htpc.ROOT.search = Search()
     from modules.utorrent import UTorrent
     htpc.ROOT.utorrent = UTorrent()
-    from modules.nzbget import NZBGet
-    htpc.ROOT.nzbget = NZBGet()
+    # from modules.nzbget import NZBGet
+    # htpc.ROOT.nzbget = NZBGet()
     from modules.qbittorrent import qbittorrent
     htpc.ROOT.qbittorrent = qbittorrent()
     from modules.stats import Stats
