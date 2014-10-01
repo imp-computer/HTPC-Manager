@@ -508,6 +508,24 @@ class Xbmc(object):
                     return xbmc.GUI.ActivateWindow(window='subtitlesearch')
                 except:
                     pass
+            elif action == 'incsubsize':
+                try:
+                    MAXIMUM_SUBTITLE_SIZE = 74
+                    INCREMENTS = 5
+                    current_sub_size = xbmc.Settings.GetSettingValue(setting=u'subtitles.height')[u'value']
+                    inc_value = MAXIMUM_SUBTITLE_SIZE if current_sub_size > 69 else current_sub_size+INCREMENTS
+                    return xbmc.Settings.SetSettingValue(setting=u'subtitles.height', value=int(inc_value))
+                except:
+                    pass
+            elif action == 'decsubsize':
+                try:
+                    MINIMUM_SUBTITLE_SIZE = 16
+                    DECREMENTS = 5
+                    current_sub_size = xbmc.Settings.GetSettingValue(setting=u'subtitles.height')[u'value']
+                    dec_value = MINIMUM_SUBTITLE_SIZE if current_sub_size < 21 else current_sub_size-DECREMENTS
+                    return xbmc.Settings.SetSettingValue(setting=u'subtitles.height', value=int(dec_value))
+                except:
+                    pass
             elif action == 'volume':
                 return xbmc.Application.SetVolume(volume=int(value))
             else:
