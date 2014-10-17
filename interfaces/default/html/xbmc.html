@@ -13,7 +13,7 @@
                 </div>
                 <div class="btn-group">
                     <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" title="Sort by"><i class="icon-sort"></i>
-                    <i class="caret"></i></a>
+                        <i class="caret"></i></a>
                     <ul class="dropdown-menu pull-right">
                         <li><a href="#" class="active" data-sort-method="title" data-sort-order="ascending"><i class="icon-sort-by-alphabet"></i> Title</a></li>
                         <li><a href="#" data-sort-method="title" data-sort-order="descending"><i class="icon-sort-by-alphabet-alt"></i> Title (descending)</a></li>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="btn-group">
                     <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-th-list"></i>
-                    <i class="caret"></i></a>
+                        <i class="caret"></i></a>
                     <ul class="dropdown-menu pull-right">
                         %if settings.get('xbmc_hide_watched', 0):
                         <li><a href="#" id="hidewatched" class="active"><i class="icon-eye-open"></i> Show Watched</a></li>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="btn-group">
                     <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-off"></i>
-                    <i class="caret"></i></a>
+                        <i class="caret"></i></a>
                     <ul class="dropdown-menu pull-right">
                         <li><a href="Wake" class="ajax-link" title="Send WakeOnLan"><i class="icon-off"></i> Wake</a></li>
                         <li><a href="System?action=Suspend" class="ajax-confirm" title="Suspend XBMC"><i class="icon-eye-close"></i> Suspend</a></li>
@@ -93,12 +93,13 @@
             </div>
         </div>
         <ul class="nav nav-tabs">
+            <li><a href="#youtubes" data-toggle="tab">YouTube</a></li>
             <li><a href="#movies" data-toggle="tab">Movies</a></li>
             <li><a href="#shows" data-toggle="tab">TV Shows</a></li>
             <li class="hide"><a href="#episodes" data-toggle="tab">Episodes</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Music
-                <i class="caret"></i></a>
+                    <i class="caret"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#artists" data-toggle="tab">Artists</a></li>
                     <li><a href="#albums" data-toggle="tab">Albums</a></li>
@@ -111,6 +112,9 @@
             <li class="hide"><a href="#playlist" data-toggle="tab">Playlist</a></li>
         </ul>
         <div class="tab-content">
+            <div id="youtubes" class="tab-pane">
+                <ul id="youtube-grid" class="thumbnails"></ul>
+            </div>
             <div id="movies" class="tab-pane">
                 <ul id="movie-grid" class="thumbnails"></ul>
             </div>
@@ -129,12 +133,12 @@
             <div id="songs" class="tab-pane">
                 <table id="songs-grid" class="table table-striped table-hover">
                     <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Album</th>
-                            <th>Duration</th>
-                        </tr>
+                    <tr>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Album</th>
+                        <th>Duration</th>
+                    </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
@@ -142,13 +146,13 @@
             <div id="playlist" class="tab-pane">
                 <table id="playlist-table" class="table table-striped table-hover playlist">
                     <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Album</th>
-                            <th>Duration</th>
-                            <th>&nbsp;</th>
-                        </tr>
+                    <tr>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Album</th>
+                        <th>Duration</th>
+                        <th>&nbsp;</th>
+                    </tr>
                     </thead>
                     <tbody></tbody>
                 </table>

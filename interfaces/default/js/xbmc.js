@@ -138,7 +138,84 @@ $(document).ready(function() {
 
     });
 });
+// Get YouTube To list files using a specific keyword for now
+var youtubeLoad = {
+    last: 0,
+    request: null,
+    limit: 50,
+    options: null
+}
+function loadYoutubes(options) {
+    var optionstr = JSON.stringify(options) + hideWatched + JSON.stringify(sorting);
+    if (youtubeLoad.options != optionstr) {
+        youtubeLoad.last = 0;
+        $('#youtube-grid').empty();
+    }
+    youtubeLoad.options = optionstr;
 
+    var active = (youtubeLoad.request!=null && youtubeLoad.request.readyState!=4);
+    if (active || youtubeLoad.last == -1) return;
+
+    var sendData = {
+        //start: youtubeLoad.last,
+        //end: (youtubeLoad.last + youtubeLoad.limit),
+        //hidewatched: hideWatched,
+        //sortmethod: sorting.method,
+        //sortorder: sorting.order,
+        directory: 'plugin://plugin.video.youtube/?path=/root/search/new&feed=search&login=false',
+        media: 'files'
+    }
+    $.extend(sendData, options);
+
+    $('.spinner').show();
+    youtubeLoad.request = $.ajax({
+        url: WEBDIR + 'xbmc/GetYoutubes',
+        type: 'get',
+        data: sendData,
+        dataType: 'json',
+        success: function (data) {
+            if (data == null) return errorHandler();
+
+            if (data.limits.end == data.limits.total) {
+                youtubeLoad.last = -1;
+            } else {
+                youtubeLoad.last += youtubeLoad.limit;
+            }
+
+            if (data.files != undefined) {
+                $.each(data.files, function (i, file) {
+                    var youtubeItem = $('<li>').attr('title', file.label);
+
+                    var youtubeAnchor = $('<a>').attr('href', '#').click(function(e) {
+                        e.preventDefault();
+                        //loadMovie(file); //?????? SHOULD BE YOUTUBE ????
+                    });
+
+                    var src = 'holder.js/100x150/text:No artwork';
+                    if (file.thumbnail != '') {
+                        src = WEBDIR + 'xbmc/GetThumb?w=100&h=150&thumb='+encodeURIComponent(file.thumbnail);
+                    }
+                    youtubeAnchor.append($('<img>').attr('src', src).addClass('thumbnail'));
+
+                    if (file.playcount >= 1) {
+                        youtubeAnchor.append($('<i>').attr('title', 'Watched').addClass('icon-white icon-ok-sign watched'));
+                    }
+
+                    youtubeAnchor.append($('<h6>').addClass('title').html(shortenText(file.label, 12)));
+
+                    youtubeItem.append(youtubeAnchor);
+
+                    $('#youtube-grid').append(youtubeItem);
+                });
+            }
+            Holder.run();
+        },
+        complete: function() {
+            $('.spinner').hide();
+        }
+    });
+}
+// End of youtube listing
 var movieLoad = {
     last: 0,
     request: null,
@@ -945,7 +1022,9 @@ function loadShowFromHash(hash) {
 function reloadTab() {
     options = {'filter': searchString}
 
-    if ($('#movies').is(':visible')) {
+    if ($('#youtubes').is(':visible')) {
+        loadYoutubes(options);
+    } else if ($('#movies').is(':visible')) {
         loadMovies(options);
     } else if ($('#shows').is(':visible')) {
         loadShows(options);

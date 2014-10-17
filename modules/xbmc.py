@@ -48,7 +48,7 @@ class Xbmc(object):
                 {'type':'bool',
                  'label':'Hide watched',
                  'name':'xbmc_hide_watched'}
-        ]})
+            ]})
         htpc.MODULES.append({
             'name': 'XBMC Servers',
             'id': 'xbmc_update_server',
@@ -59,8 +59,8 @@ class Xbmc(object):
                  'label':'Server',
                  'name':'xbmc_server_id',
                  'options':[
-                    {'name':'New', 'value':0}
-                ]},
+                     {'name':'New', 'value':0}
+                 ]},
                 {'type':'text',
                  'label':'Name',
                  'name':'xbmc_server_name'},
@@ -81,7 +81,7 @@ class Xbmc(object):
                 {'type':'text',
                  'label':'Mac addr.',
                  'name':'xbmc_server_mac'}
-        ]})
+            ]})
         server = htpc.settings.get('xbmc_current_server', 0)
         self.changeserver(server)
 
@@ -101,7 +101,7 @@ class Xbmc(object):
     @require()
     @cherrypy.tools.json_out()
     def ping(self, xbmc_server_host='', xbmc_server_port='',
-            xbmc_server_username='', xbmc_server_password='', **kwargs):
+             xbmc_server_username='', xbmc_server_password='', **kwargs):
         """ Tests settings, returns MAC address on success and null on fail """
         self.logger.debug("Testing XBMC connectivity")
         try:
@@ -143,17 +143,17 @@ class Xbmc(object):
     @require()
     @cherrypy.tools.json_out()
     def setserver(self, xbmc_server_id, xbmc_server_name, xbmc_server_host, xbmc_server_port,
-            xbmc_server_username=None, xbmc_server_password=None, xbmc_server_mac=None):
+                  xbmc_server_username=None, xbmc_server_password=None, xbmc_server_mac=None):
         """ Create a server if id=0, else update a server """
         if xbmc_server_id == "0":
             self.logger.debug("Creating XBMC-Server in database")
             try:
                 server = XbmcServers(name=xbmc_server_name,
-                        host=xbmc_server_host,
-                        port=int(xbmc_server_port),
-                        username=xbmc_server_username,
-                        password=xbmc_server_password,
-                        mac=xbmc_server_mac)
+                                     host=xbmc_server_host,
+                                     port=int(xbmc_server_port),
+                                     username=xbmc_server_username,
+                                     password=xbmc_server_password,
+                                     mac=xbmc_server_mac)
                 self.changeserver(server.id)
                 return 1
             except Exception, e:
@@ -217,6 +217,26 @@ class Xbmc(object):
     @cherrypy.expose()
     @require()
     @cherrypy.tools.json_out()
+    def GetYoutubes(self, start=0, end=0, sortmethod='label', sortorder='ascending', hidewatched=0, filter='', directory='', media='files'):
+        """ Get a list of youtube videos """
+        self.logger.debug("Fetching Youtube Videos")
+        try:
+            xbmc = Server(self.url('/jsonrpc', True))
+            sort = {'order': sortorder, 'method': sortmethod, 'ignorearticle': True}
+            properties = ['label', 'thumbnail', 'file', 'fanart', 'playcount']
+            limits = {'start': int(start), 'end': int(end)}
+            filter = {'field': 'label', 'operator': 'contains', 'value': filter}
+            if hidewatched == "1":
+                filter = {"and": [filter, {'field': 'playcount', 'operator': 'is', 'value': '0'}]}
+            return xbmc.Files.GetDirectory(directory=directory, media=media)
+        except Exception, e:
+            self.logger.exception(e)
+            self.logger.error("Unable to fetch youtube videos!")
+            return
+
+    @cherrypy.expose()
+    @require()
+    @cherrypy.tools.json_out()
     def GetMovies(self, start=0, end=0, sortmethod='title', sortorder='ascending', hidewatched=0, filter=''):
         """ Get a list of all movies """
         self.logger.debug("Fetching Movies")
@@ -224,7 +244,7 @@ class Xbmc(object):
             xbmc = Server(self.url('/jsonrpc', True))
             sort = {'order': sortorder, 'method': sortmethod, 'ignorearticle': True}
             properties = ['title', 'year', 'plot', 'thumbnail', 'file', 'fanart', 'studio', 'trailer',
-                    'imdbnumber', 'genre', 'rating', 'playcount']
+                          'imdbnumber', 'genre', 'rating', 'playcount']
             limits = {'start': int(start), 'end': int(end)}
             filter = {'field': 'title', 'operator': 'contains', 'value': filter}
             if hidewatched == "1":
@@ -590,12 +610,12 @@ class Xbmc(object):
         try:
             addr_byte = self.current.mac.split(':')
             hw_addr = struct.pack('BBBBBB',
-            int(addr_byte[0], 16),
-            int(addr_byte[1], 16),
-            int(addr_byte[2], 16),
-            int(addr_byte[3], 16),
-            int(addr_byte[4], 16),
-            int(addr_byte[5], 16))
+                                  int(addr_byte[0], 16),
+                                  int(addr_byte[1], 16),
+                                  int(addr_byte[2], 16),
+                                  int(addr_byte[3], 16),
+                                  int(addr_byte[4], 16),
+                                  int(addr_byte[5], 16))
             msg = '\xff' * 6 + hw_addr * 16
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
